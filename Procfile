@@ -1,1 +1,0 @@
-web: gunicorn FakeNewsDetection:app
