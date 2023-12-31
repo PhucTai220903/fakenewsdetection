@@ -21,8 +21,6 @@ $("form").on("submit", function (event) {
           .text("Tin giả")
           .addClass("result-fake")
           .removeClass("result-real result-unknown");
-      } else if (prediction == 2) {
-        $("#prediction").text("The news cannot be classified");
       }
     },
   });
