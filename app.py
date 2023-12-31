@@ -5,9 +5,11 @@ import os
 import webbrowser
 from threading import Timer
 
-# Đặt tên thư mục mới cho templates
-template_folder = 'Design'
-app = Flask(__name__, template_folder=template_folder)
+# Đặt tên thư mục mới cho templates và static
+custom_template_folder = 'Design/templates'
+custom_static_folder = 'Design/static'  # Đặt tên thư mục tĩnh mới
+
+app = Flask(__name__, template_folder=custom_template_folder, static_folder=custom_static_folder)
 CORS(app)
 
 with open('temp/svm_model.pkl', 'rb') as f:

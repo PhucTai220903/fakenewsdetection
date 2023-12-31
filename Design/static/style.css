@@ -1,0 +1,146 @@
+@keyframes border {
+    0% {border-color: red;}
+    14% {border-color: orange;}
+    28% {border-color: yellow;}
+    42% {border-color: lime;}
+    57% {border-color: cyan;}
+    71% {border-color: blue;}
+    85% {border-color: purple;}
+    100% {border-color: red;}
+}
+
+  @keyframes gradient {
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: -100% 0;
+    }
+  }
+
+  body {
+    background-color: black;
+    width: 500px;
+    margin-left: -70px;
+    margin-right: auto;
+    padding: 150px;
+    display: block;
+    overflow-x: hidden;
+  }
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 20px;
+    background: linear-gradient(
+      90deg,
+      blue,
+      indigo,
+      rgb(88, 22, 163),
+      indigo,
+      rgb(6, 70, 107)
+    );
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 15s ease infinite;
+  
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  textarea {
+    font-family: 'JetBrains Mono', monospace;
+    overflow: auto;
+    transition: all 0.5s ease;
+    max-height: none;
+    resize: none;
+    font-size: 16px;
+    padding: 5px;
+    border: 3px solid;
+    border-radius: 5px; 
+    animation: border 10s linear infinite;
+  }
+  textarea:hover {
+    transform: scale(1.05); 
+  }
+  textarea::-webkit-scrollbar {
+    width: 12px; /* Độ rộng của thanh cuộn chuột */
+}
+textarea::-webkit-scrollbar-track {
+  background: white; /* Màu của đường ray */
+}
+textarea::-webkit-scrollbar-thumb {
+background-color: rgb(8, 8, 8); /* Màu của thanh cuộn chuột */
+border-radius: 20px; /* Độ cong của thanh cuộn chuột */
+border: 3px solid white; /* Đường viền xung quanh thanh cuộn chuột */
+}
+
+  button {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    border-radius: 5px; 
+
+  }
+  button:hover {
+    transform: scale(1.03);
+}
+
+  p {
+    font-family: 'JetBrains Mono', monospace;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+
+  .result-real {
+    color: green ;
+  }
+
+  .result-fake {
+    color: red ;
+  }
+
+  #myVideo {
+    position: fixed;
+    z-index: -1; /* Ensure video is behind content */
+    transition: all 0.5s ease;
+    height: 100%;
+    width: 100%;
+    top: 10px;
+    left: 300px;
+  }
+  
+  #content {
+    position: relative;
+    z-index: 1; /* Ensure content is in front of video */
+  }
+
+  label {
+    font-family: 'JetBrains Mono', monospace;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  #logo {
+    position: fixed;;
+    top: 0;
+    left: 0;
+    width: 75px; /* adjust as needed */
+    height: 75px; /* adjust as needed */
+  }
