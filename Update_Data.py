@@ -11,14 +11,13 @@ from sklearn.metrics import roc_auc_score
 
 import numpy as np
 import re #biểu thức chính quy
-import nltk
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 from underthesea import chunk
-from underthesea import text_normalize
-import swifter
+from underthesea import word_tokenize
+
 import pickle
 from sklearn.model_selection import cross_val_score
 
@@ -48,7 +47,7 @@ def train_and_evaluate_svm(data):
     # Perform GridSearchCV
     grid_search = GridSearchCV(svm_model, param_grid, cv=5, n_jobs=-1)
     grid_search_fit = grid_search.fit(X_train_tfidf, y_train)
-
+    
     best_model = grid_search_fit.best_estimator_
     y_pred = best_model.predict(X_test_tfidf)
     # Optionally, you can return the trained model
@@ -56,6 +55,7 @@ def train_and_evaluate_svm(data):
 
 
 def word(text):
+    word_tokenize(text)
     text = text.lower()
     text = re.sub(r'[^\w\s]', '', text)
     chunks = chunk(text)
@@ -196,7 +196,7 @@ missing_rows_data_in_datacheck = merged_data_datacheck[merged_data_datacheck['_m
 
 # Kiểm tra xem missing_rows_data_in_datacheck có tồn tại hay không
 if missing_rows_data_in_datacheck.empty:
-    result_value = pd.read_csv('data/temp.csv')
+    result_value = result_value = pd.DataFrame(columns=['text', 'label'])
 else:
     # Nếu có, thực hiện các bước tiếp theo
     data_check = data.copy()                                        #-> copy toàn bộ dữ liệu từ dataframe của data để update data_check (thêm những bài báo mới)
@@ -208,7 +208,7 @@ else:
     result_value = temp_selected                                    #-> trả về giá trị cuối là result_value
 
 # In kết quả hoặc sử dụng result_value theo nhu cầu
-best_model, X_test_tfidf, y_test, vectorized, y_train, y_pred, grid_search_fit = train_and_evaluate_svm(data)
+best_model, X_test_tfidf, y_test, vectorized, y_train, y_pred, grid_search_fit = tqdm(train_and_evaluate_svm(data))
 
 print('Những bài báo mới được cập nhật:')
 if result_value.empty:
@@ -221,10 +221,12 @@ else:
     tqdm.pandas()
     # result_value.loc[:, 'text'] = result_value['text'].swifter.apply(word).copy()
     result_value.loc[:, 'text'] = result_value['text'].progress_apply(word)
-    data_have_clean = pd.read_csv('data/temp_data_noClean.csv', encoding='utf-8')
-
+    
+    data_have_clean = pd.read_csv('data/temp_data_haveClean.csv', encoding='utf-8')
     data = pd.concat([data_have_clean, result_value[['text', 'label']]], ignore_index=True)
     data = data.fillna('')
+    data.to_csv('data/temp_data_haveClean.csv', index=False, encoding='utf-8', mode='a', header=False)
+    data[['text', 'label']]
     
     # In ra các tham số tốt nhất
     print('-------------------------------------------------------------------------------------')
@@ -239,7 +241,6 @@ else:
     #đánh giá mô hình hiện tại
     
     evaluate_model_performance(best_model, X_test_tfidf, y_test, y_pred)
-
 
 
 def main():
