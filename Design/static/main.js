@@ -11,20 +11,23 @@ $("form").on("submit", function (event) {
     data: { text: text },
     success: function (data) {
       var prediction = data.prediction;
+      var $prediction = $("#prediction");
+
+      // Xóa tất cả các lớp màu trước đó
+      $prediction.removeClass("result-real result-fake result-unknown");
+
       if (prediction == 0) {
-        $("#prediction")
-          .text("Tin thật")
-          .addClass("result-real")
-          .removeClass("result-fake result-unknown");
+        // Nếu prediction = 0, thêm lớp màu xanh cho #prediction
+        $prediction.text("Tin thật").addClass("result-real");
       } else if (prediction == 1) {
-        $("#prediction")
-          .text("Tin giả")
-          .addClass("result-fake")
-          .removeClass("result-real result-unknown");
+        // Nếu prediction = 1, thêm lớp màu đỏ cho #prediction
+        $prediction.text("Tin giả").addClass("result-fake");
       }
     },
   });
 });
+
+// ... (Phần code xử lý chiều cao textarea ở đây)
 
 $("textarea").on("input", function () {
   // Đặt chiều cao tối đa bạn mong muốn (ví dụ: 200px)

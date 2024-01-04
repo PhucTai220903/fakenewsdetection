@@ -66,20 +66,32 @@
     border-radius: 5px; 
     animation: border 10s linear infinite;
   }
+  
   textarea:hover {
     transform: scale(1.05); 
   }
+  
+  textarea.real {
+    border-color: green; /* Màu xanh khi prediction = 0 */
+  }
+  
+  textarea.fake {
+    border-color: red; /* Màu đỏ khi prediction = 1 */
+  }
+  
   textarea::-webkit-scrollbar {
     width: 12px; /* Độ rộng của thanh cuộn chuột */
-}
-textarea::-webkit-scrollbar-track {
-  background: white; /* Màu của đường ray */
-}
-textarea::-webkit-scrollbar-thumb {
-background-color: rgb(8, 8, 8); /* Màu của thanh cuộn chuột */
-border-radius: 20px; /* Độ cong của thanh cuộn chuột */
-border: 3px solid white; /* Đường viền xung quanh thanh cuộn chuột */
-}
+  }
+  
+  textarea::-webkit-scrollbar-track {
+    background: white; /* Màu của đường ray */
+  }
+  
+  textarea::-webkit-scrollbar-thumb {
+    background-color: rgb(8, 8, 8); /* Màu của thanh cuộn chuột */
+    border-radius: 20px; /* Độ cong của thanh cuộn chuột */
+    border: 3px solid white; /* Đường viền xung quanh thanh cuộn chuột */
+  }
 
   button {
     font-family: 'JetBrains Mono', monospace;
